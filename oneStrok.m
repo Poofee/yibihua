@@ -12,6 +12,7 @@ RightInPts = false;
 UpInPts = false;
 DownInPts = false;
 [row,col] = size(points);
+row = row - 1;
 [trow,tcol] = size(table);
 % points
 
@@ -27,9 +28,9 @@ if row >= 1
             DownInPts = true;
         end
     end
-    %     cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap ',num2str(coorX(points(end,1),points(end,2))),' ',num2str(coorY(points(end,1),points(end,2)))];
-    % system(cmd);
-    % pause(0.5)
+%         cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap ',num2str(coorX(points(end,2),points(end,1))),' ',num2str(coorY(points(end,2),points(end,1)))];
+%     system(cmd);
+%     pause(0.5)
 else
     %   cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap ',num2str(coorX(startPointX,startPointY)),' ',num2str(coorY(startPointX,startPointY))];
     % system(cmd);
@@ -70,7 +71,7 @@ end
 
 if leftP && rightP && upP && downP
     if row == count
-        road = points;
+        road = points(2:end,:);
         res = true;
         msg = 'found it'
 %         for i=1:length(road)
