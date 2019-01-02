@@ -19,7 +19,7 @@ for iter=1:15
     % read the screenshot and rotate 90
     img = imread('screencap.png');
     img90 = img;%imrotate(img,-90);
-    I2=double(im2bw(img90,90/255));
+    I2=double(im2bw(img90,170/255));
     % imshow(img90);
     % initial the position
     offset = 20;
@@ -80,7 +80,7 @@ for iter=1:15
         
     
     
-    left1=cornerX - 20; left2=left1+50;twidth=2;up1=downBound-240;
+    left1=cornerX - 20; left2=left1+50;twidth=2;up1=downBound-300;
     findw = false;rectwidth=0;
     for i=1:imgsize(2)-left1
         meanRGB = mean(I3((up1-2):(up1),(left1+i):(left1+i+2)),'all');
@@ -141,7 +141,7 @@ for iter=1:15
             maxX = cornerX+j*rectwidth + (j-1)*rectgap-offset;
             minY = cornerY + offset + (i-1)*(rectwidth+rectgap);
             maxY = cornerY+i*rectwidth + (i-1)*rectgap-offset;
-            b = img90(minY:maxY,minX:maxX,3)/3+img90(minY:maxY,minX:maxX,2)/3+img90(minY:maxY,minX:maxX,1)/3;
+            b = I3(minY:maxY,minX:maxX);
 %             b = b / 3;
             %bstart = min(I2(minY:maxY,minX:maxX),[],'all');
             bstart = size(find(I2(minY:maxY,minX:maxX)==0));
@@ -151,7 +151,7 @@ for iter=1:15
             amin = min(b,[],'all');
             amax = max(b,[],'all');
 %             s = std(img90(minY:maxY,minX:maxX,3),0,'all');
-            if meanRGB > 240
+            if meanRGB > 0.7
                 %            no road
                 table(i,j) = 0;
             else
@@ -181,10 +181,10 @@ for iter=1:15
     for i=1:length(road)
         cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap ',num2str(coorX(road(i,2),road(i,1))),' ',num2str(coorY(road(i,2),road(i,1)))];
         system(cmd);
-        pause(0.2)
+        pause(0.1)
     end
-    pause(2)
-    cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap 465 865'];
+    pause(4)
+    cmd = ['C:\Changzhi\dnplayer2/adb.exe shell input tap 450 900'];
     system(cmd);
-    pause(1)
+    pause(2)
 end
